@@ -1,11 +1,11 @@
 import React from 'react';
 
-export class AddProject extends React.Component {
+export class MyProject extends React.Component {
 
 	render() {
 		return (
 				<div className="container">
-					<h1>Project from</h1>
+					<h1>My Project</h1>
 				</div>
 			);
 	}

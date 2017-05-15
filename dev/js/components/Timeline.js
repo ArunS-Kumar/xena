@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 export class TimeLine extends React.Component {
 
@@ -61,4 +62,11 @@ export class TimeLine extends React.Component {
 	}
 }
 
+// function mapStateToProps(state) {
+    // return {
+        // projectlist: state.projectlist
+//     };
+// }
+
+// export default connect(mapStateToProps)(TimeLine);
 
