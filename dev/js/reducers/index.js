@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import ProjectList from './project-list';
+import { reducer as formReducer } from 'redux-form'
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -8,6 +9,7 @@ import ProjectList from './project-list';
 
 const allReducers = combineReducers({
     projectlist: ProjectList,
+    form: formReducer,
 });
 
 export default allReducers
