@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { Field, reduxForm, Select} from 'redux-form';
-// import DropdownList from 'react-widgets/lib/DropdownList';
-// import SelectList from 'react-widgets/lib/SelectList';
-// import Multiselect from 'react-widgets/lib/Multiselect';
-// import 'react-widgets/dist/css/react-widgets.css'
 
 export class NewProject extends React.Component {
 
 	constructor(props){
 		super(props);	
-		console.log(props);	
+		this.state = {
+		      redirectToReferrer: false,
+	    };
 		this.justSubmitted = this.justSubmitted.bind(this);
+		this.back = this.back.bind(this);
 	}
 
 	justSubmitted(event) {
@@ -30,7 +30,17 @@ export class NewProject extends React.Component {
 		);
 	}
 
+	back() {
+		this.setState( { redirectToReferrer : true } );
+	}
+
 	render() {
+
+		if (this.state.redirectToReferrer) {
+	      return (
+	        <Redirect to='myproject' />
+	      )
+	    }
 
 		const options = [
 			{ value: 'one', label: 'One' },
@@ -79,6 +89,7 @@ export class NewProject extends React.Component {
 	    		    <button type="submit" className="btn btn-success btn-sm proListFormBut" >Publish Now</button>
 			        <button type="submit" className="btn btn-primary btn-sm proListFormBut" >Save</button>
 			        <button type="button" className="btn btn-default btn-sm proListFormBut" onClick={this.reset}> Reset</button>
+			        <button type="button" className="btn btn-default btn-sm proListFormBut" onClick={this.back}> Back</button>
 		        </div>
 		      </div>
 		    </form>

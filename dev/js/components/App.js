@@ -15,7 +15,6 @@ export default class App extends React.Component {
 		this.state = {
 		      projectDropdownDisplay: false,
 	    };
-
 	    this.projectDropdown = this.projectDropdown.bind(this);
 	}
 
@@ -25,7 +24,6 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
 				<div>
 					<Router>
@@ -67,11 +65,3 @@ export default class App extends React.Component {
 			);
 	}
 }
-
-// function mapStateToProps(state) {
-//     return {
-//         projectlist: state.projectlist
-//     };
-// }
-
-// export default connect(mapStateToProps)(App);

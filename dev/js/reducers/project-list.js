@@ -8,20 +8,38 @@ export default function () {
         {
             id: 1,
             user: 1,
-            name: "First Project",
-            description: "This is about First Project description",
+            projectName: "First Project",
+            projectDescription: "This is about First (1) Project description",
         },
         {
-            id: 1,
+            id: 2,
             user: 1,
-            name: "Second Project",
-            description: "This is about Second Project description",
+            projectName: "Second Project",
+            projectDescription: "This is about Second (2) Project description",
         },
         {
             id: 3,
             user: 1,
-            name: "Thired Project",
-            description: "This is about Thired Project description",
+            projectName: "Thired Project",
+            projectDescription: "This is about Thired (3) Project description",
+        },
+        {
+            id: 4,
+            user: 2,
+            projectName: "Forth Project",
+            projectDescription: "This is about Forth (4) Project description",
+        },
+        {
+            id: 5,
+            user: 3,
+            projectName: "Fifth Project",
+            projectDescription: "This is about Fifth (5) Project description",
+        },
+        {
+            id: 6,
+            user: 3,
+            projectName: "Sixth Project",
+            projectDescription: "This is about Sixth (6) Project description",
         }
     ]
 }
