@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import ProjectList from './project-list';
+import Skills from './skills';
 import { reducer as formReducer } from 'redux-form'
 
 /*
@@ -9,6 +10,7 @@ import { reducer as formReducer } from 'redux-form'
 
 const allReducers = combineReducers({
     projectlist: ProjectList,
+    skills: Skills,
     form: formReducer,
 });
 

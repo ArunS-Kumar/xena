@@ -8,7 +8,7 @@ export default function () {
         {
             id: 1,
             user: 1,
-            projectName: "First Project",
+            projectName: "First Projects",
             projectDescription: "This is about First (1) Project description",
         },
         {

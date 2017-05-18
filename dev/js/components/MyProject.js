@@ -26,7 +26,7 @@ export class MyProject extends React.Component {
 						<th scope="row">{elem.id}</th>
 						<td>{elem.projectName}</td>
 						<td>{elem.projectDescription}</td>
-						<td>
+						<td className="text-center">
 							<button type="button" className="btn btn-info btn-sm proListFormBut">Edit</button>
 							<button type="button" className="btn btn-danger btn-sm proListFormBut">Delete</button>
 						</td>
@@ -42,10 +42,11 @@ export class MyProject extends React.Component {
 
 		return (
 				<div>
-					<h2>My Projects</h2>
-					<div className="pull-right">
-						<a className="btn btn-success btn-sm" role="button" onClick={this.handleclick}>New Project</a>
-					</div>
+					<h2>My Projects
+						<div className="pull-right">
+							<a className="btn btn-success btn-sm" role="button" onClick={this.handleclick}>New Project</a>
+						</div>
+					</h2>
 					<br />
 					<table className="table table-hover">
 					   <thead>
@@ -53,7 +54,7 @@ export class MyProject extends React.Component {
 					         <th>#</th>
 					         <th>Project Name</th>
 					         <th>Project Description</th>
-					         <th>Action</th>
+					         <th width="13%" className="text-center">Action</th>
 					      </tr>
 					   </thead>
 					   <tbody>
