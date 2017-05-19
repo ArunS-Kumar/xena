@@ -5,6 +5,28 @@ import { Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import Select from 'react-select';
 
+const validate = values => {
+	const errors = {}
+
+	if (!values.projectTitle) {
+		errors.projectTitle = 'Project Title field is Required'
+	} else if (values.projectTitle.length < 3) {
+		errors.projectTitle = 'Must be greater than 3 characters'
+	} else if (values.projectTitle.length > 15) {
+		errors.projectTitle = 'Must be 15 characters or less'
+	}
+
+	if (!values.projectDescription) {
+		errors.projectDescription = 'Project Description field is Required'
+	} else if (values.projectDescription.length < 3) {
+		errors.projectDescription = 'Must be greater than 3 characters'
+	} else if (values.projectDescription.length > 150) {
+		errors.projectDescription = 'Must be 150 characters or less'
+	}
+
+	return errors
+}
+
 export class NewProject extends React.Component {
 
 	constructor(props){
@@ -13,6 +35,7 @@ export class NewProject extends React.Component {
 			redirectToReferrer: false,
 			disabled: false,
 			value: [],
+			errors: [],
 	    };
 		this.justSubmitted = this.justSubmitted.bind(this);
 		this.back = this.back.bind(this);
@@ -21,18 +44,23 @@ export class NewProject extends React.Component {
 
 	justSubmitted(event) {
 		event.preventDefault();
+		
+		// Form Validation
+		var fieldValues = [];
+		for (let val of event.target.querySelectorAll('.validate')) fieldValues[val.name] = val.value;
+		let validateErrors = this.props.validate(fieldValues);
+		if(Object.keys(validateErrors).length > 0) {
+			this.setState( { errors : validateErrors } );
+			return false;
+		}
+
+		// Form Submission 
+		this.setState( { errors : [] } );
 		var firstName = event.target.querySelector('input[name="firstName"]');
 		var lastName = event.target.querySelector('input[name="lastName"]');
 		var email = event.target.querySelector('input[name="email"]');
 		console.log(event);
-	}
 
-	reset(event) {
-		Array.from(document.getElementsByClassName("formvals")).forEach(
-		    function(element, index, array) {
-		        element.value = null;
-		    }
-		);
 	}
 
 	back() {
@@ -45,10 +73,19 @@ export class NewProject extends React.Component {
 
 	render() {
 
+		const { reset, submitting} = this.props;
+		const errors = this.state.errors;
+
 		let options = [];
 		this.props.skills.map((elem, i) => {
 			options.push({ label: elem.name, value: elem.name });
 		});
+
+		if (this.state.reset) {
+			return (
+				<Redirect to='newproject' />
+			)
+		}
 
 		if (this.state.redirectToReferrer) {
 			return (
@@ -57,6 +94,7 @@ export class NewProject extends React.Component {
 		}
 
 		return (
+
 			<div>
 				<h2> New Project 
 					<div className="pull-right">
@@ -73,9 +111,9 @@ export class NewProject extends React.Component {
 								name="projectTitle"
 								component="input"
 								type="text"
-								placeholder="Project Title"
-								className="formvals col-sm-8" 
-							/>
+								className="formvals col-sm-8 validate" 
+								/>
+								{ errors['projectTitle'] ? <span>{errors['projectTitle']}</span> : '' }
 						</div>
 					</div>
 
@@ -85,22 +123,10 @@ export class NewProject extends React.Component {
 							<Field 
 								name="projectDescription" 
 								component="textarea" 
-								className="formvals col-sm-8" 
+								className="formvals col-sm-8 validate" 
 								rows="3" 
 							/>
-						</div>
-					</div>
-
-					<div className="form-group ">
-						<label className="form-check-label col-sm-2">Team Leader </label>
-						<div className="">
-							<Field
-								name="employed"
-								id="employed"
-								component="input"
-								type="checkbox"
-								className="form-check-input formvals"
-							/>
+							{ errors['projectDescription'] ? <span>{errors['projectDescription']}</span> : '' }
 						</div>
 					</div>
 
@@ -112,7 +138,7 @@ export class NewProject extends React.Component {
 								simpleValue 
 								disabled={this.state.disabled} 
 								value={this.state.value} 
-								placeholder="Select your favourite(s)" 
+								placeholder="Select your required skills" 
 								options={options} 
 								onChange={this.handleSelectChange} 
 								className="col-sm-8"
@@ -126,7 +152,7 @@ export class NewProject extends React.Component {
 						<div className="col-sm-8 avoidpadleft">
 							<button type="submit" className="btn btn-success btn-sm proListFormBut" >Publish Now</button>
 							<button type="submit" className="btn btn-primary btn-sm proListFormBut" >Save</button>
-							<button type="button" className="btn btn-default btn-sm proListFormBut" onClick={this.reset}> Reset</button>
+							<button type="button" className="btn btn-default btn-sm proListFormBut" onClick={reset}> Reset</button>
 						</div>
 					</div>
 				</form>
@@ -143,12 +169,11 @@ const mapStateToProps = (state) => {
 
 NewProject.propTypes = {
 	active: PropTypes.string,
-	fields: PropTypes.array.isRequired,
 };
 
 NewProject = reduxForm({
   form: 'contact',
-  fields: ['name', 'email', 'occupation', 'currentlyEmployed', 'sex']
+  validate,
 })(NewProject);
 
 NewProject = connect(

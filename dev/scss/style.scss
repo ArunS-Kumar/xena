@@ -307,3 +307,9 @@ body {
 .avoidpadleft {
     padding-left: 0 !important;
 }
+
+form>div>div>span {
+    border: none;
+    font-weight: 700;
+    color: #700;
+}
